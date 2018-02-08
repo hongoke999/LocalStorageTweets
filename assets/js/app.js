@@ -121,6 +121,6 @@ function removeTweetLocalStorage(tweet) {
         }
     });
 
-    //
+    // Save the data
     localStorage.setItem('tweets', JSON.stringify(tweets));
 }
