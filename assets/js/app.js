@@ -35,6 +35,9 @@ function newTweet(e) {
 
     // Add the remove button to each tweet
     li.appendChild(removeBtn);
+
+    // Add to the Local Storage
+    addTweetLocalStorage(tweet);
 }
 
 // Remove Tweets from the DOM
@@ -42,4 +45,28 @@ function removeTweet(e) {
     if(e.target.classList.contains('remove-tweet')) {
         e.target.parentElement.remove();
     } 
+}
+
+// Add Tweets to the Local Storage
+function addTweetLocalStorage(tweet) {
+    let tweets = getTweetsFromStorage();
+
+    // Add tweets into an Array
+    tweets.push(tweet);
+
+    // Convert tweet array into a String
+    localStorage.setItem('tweets', JSON.stringify(tweets));
+}
+
+// Get Tweets from the Local Storage
+function getTweetsFromStorage() {
+    let tweets;
+    const tweetsLS = localStorage.getItem('tweets');
+    // Get the values, if null is returned
+    if(tweetsLS === null) {
+        tweets = [];
+    } else {
+        tweets = JSON.parse(tweetsLS);
+    }
+    return tweets;
 }
