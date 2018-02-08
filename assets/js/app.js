@@ -1,14 +1,19 @@
 // Variables
 tweetList = document.getElementById('tweet-list');
+
 // Event Listeners
 eventListeners();
 
 function eventListeners() {
     // Form Submissions
     document.querySelector('#form').addEventListener('submit', newTweet);
+
+    // Remove tweet from the list
+    tweetList.addEventListener('click',  removeTweet);
 }
 
 // Functions
+// Add Tweets to the DOM
 function newTweet(e) {
     e.preventDefault();
     
@@ -30,4 +35,11 @@ function newTweet(e) {
 
     // Add the remove button to each tweet
     li.appendChild(removeBtn);
+}
+
+// Remove Tweets from the DOM
+function removeTweet(e) {
+    if(e.target.classList.contains('remove-tweet')) {
+        e.target.parentElement.remove();
+    } 
 }
