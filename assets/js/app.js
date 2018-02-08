@@ -41,6 +41,12 @@ function newTweet(e) {
 
     // Add to the Local Storage
     addTweetLocalStorage(tweet);
+
+    // Print the alert
+    alert('Tweet Added!');
+
+    // Reset the Form after typing a tweet
+    this.reset();
 }
 
 // Remove Tweets from the DOM
@@ -48,6 +54,9 @@ function removeTweet(e) {
     if(e.target.classList.contains('remove-tweet')) {
         e.target.parentElement.remove();
     } 
+
+    // Remove Tweets from Local Storage
+    removeTweetLocalStorage(e.target.parentElement.textContent);
 }
 
 // Add Tweets to the Local Storage
@@ -88,11 +97,30 @@ function localStorageOnLoad() {
         // Create an <li> element
         const li = document.createElement('li');
         li.textContent = tweet;
-        
+
         // Add to the list
         tweetList.appendChild(li);
 
         // Add the remove button to each tweet
         li.appendChild(removeBtn);        
     });
+}
+
+// Remove Tweets from the Local Storage
+function removeTweetLocalStorage(tweet) {
+    // get tweets from the Storage
+    let tweets = getTweetsFromStorage();
+
+    // Remove the X from the tweet
+    const tweetDelete = tweet.substring(0, tweet.length - 1);
+    
+    // Loop throught the tweets and remove a tweet that's equal
+    tweets.forEach(function(tweetLS, index) {
+        if(tweetDelete === tweetLS) {
+            tweets.splice(index, 1);
+        }
+    });
+
+    //
+    localStorage.setItem('tweets', JSON.stringify(tweets));
 }
